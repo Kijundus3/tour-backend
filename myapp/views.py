@@ -50,3 +50,6 @@ def review_list(request):
     reviews = Review.objects.all()
     serializer = ReviewSerializer(reviews, many=True)
     return Response(serializer.data)
+
+
+# Test
