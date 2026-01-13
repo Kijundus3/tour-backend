@@ -36,6 +36,36 @@ def tour_delete(request, pk):
     return Response({'message': 'Tour deleted successfully'}, status=204)
 
 
+# Post Tours
+@api_view(['POST'])
+def tour_create(request):
+    serializer = TourSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=201)
+    return Response(serializer.errors, status=400)
+
+
+
+
+# Put Tours
+@api_view(['PUT'])
+def tour_update(request, pk):
+    try:
+        tour = Tour.objects.get(pk=pk)
+    except Tour.DoesNotExist:
+        return Response({'error': 'Tour not found'}, status=404)
+
+    serializer = TourSerializer(tour, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=400)
+
+
+
+
+
 # BOOKINGS API VIEWS
 @api_view(['GET'])
 def booking_list(request):
