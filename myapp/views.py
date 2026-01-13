@@ -43,6 +43,29 @@ def booking_list(request):
     serializer = BookingSerializer(bookings, many=True)
     return Response(serializer.data)
 
+# Get Booking by ID
+@api_view(['GET'])
+def booking_detail(request, pk):
+    try:
+        booking = Booking.objects.get(pk=pk)
+    except Booking.DoesNotExist:
+        return Response({'error': 'Booking not found'}, status=404)
+    
+    serializer = BookingSerializer(booking)
+    return Response(serializer.data)
+
+# Delete Booking by ID
+@api_view(['DELETE'])
+def booking_delete(request, pk):
+    try:
+        booking = Booking.objects.get(pk=pk)
+    except Booking.DoesNotExist:
+        return Response({'error': 'Booking not found'}, status=404)
+
+    booking.delete()
+    return Response({'message': 'Booking deleted successfully'}, status=204)
+
+
 
 # REVIEWS API VIEWS
 @api_view(['GET'])    
@@ -51,5 +74,25 @@ def review_list(request):
     serializer = ReviewSerializer(reviews, many=True)
     return Response(serializer.data)
 
+# Get Review by ID
+@api_view(['GET'])
+def review_detail(request, pk):
+    try:
+        review = Review.objects.get(pk=pk)
+    except Review.DoesNotExist:
+        return Response({'error': 'Review not found'}, status=404)
+    
+    serializer = ReviewSerializer(review)
+    return Response(serializer.data)
 
-# Test
+# Delete Review by ID
+@api_view(['DELETE'])
+def review_delete(request, pk): 
+    try:
+        review = Review.objects.get(pk=pk)
+    except Review.DoesNotExist:
+        return Response({'error': 'Review not found'}, status=404)
+
+    review.delete()
+    return Response({'message': 'Review deleted successfully'}, status=204)  
+
