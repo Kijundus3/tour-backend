@@ -1,5 +1,9 @@
 from django.urls import path
 from .views import *
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 '''
 urlpatterns = [
 
@@ -31,4 +35,7 @@ urlpatterns = [
     path('bookings/<int:id>/', manage_booking),
     path('reviews/', manage_review),
     path('reviews/<int:id>/', manage_review),
+
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]

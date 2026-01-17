@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'myapp',  
     'tour_backend',
-    'rest_framework', 
+    'rest_framework',
+    # 'rest_framework_simplejwt', 
 
     # Replace 'myapp' with your actual app name   
 ]

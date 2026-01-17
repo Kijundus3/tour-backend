@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view,permission_classes, authentication_classes
 from rest_framework.response import Response
 from .models import *
 from .serializer import *
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 # First views.py file
 
@@ -183,7 +184,8 @@ def review_update(request, pk):
 
 def generic_api(model_class, serializer_class):
     @api_view(['GET','POST', 'DELETE', 'PUT'])
-    # @permission_classes([IsAuthenticated, IsAdminUser])
+    @authentication_classes([JWTAuthentication])
+    @permission_classes([IsAuthenticated])
     def api(request, id = None):
         if request.method == 'GET':
             if id:
